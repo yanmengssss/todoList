@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../prisma-mysql-client"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("MYSQL_DATABASE_URL")
+}
+
+model Task {
+  id          Int      @id @default(autoincrement())  
+  title       String
+  description String?
+  status      String
+  priority    Int
+  endAt       DateTime?
+  userId      Int
+  favorite    Boolean @default(false)
+  tags        Json
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+
+model Tags {
+  id          Int      @id @default(autoincrement())  
+  text        String
+  color       String?
+}
+
+model User {
+  id          Int      @id @default(autoincrement())
+  email       String   @unique
+  name        String?
+  password    String?
+  avatar      String?
+  phone       String?
+  address     String?
+  birthday    DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model OTP {
+  id          Int      @id @default(autoincrement())
+  email       String
+  code        String
+  type        String   // 'login' | 'register' | 'reset'
+  expiresAt   DateTime
+  used        Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  
+  @@index([email, code])
+}
