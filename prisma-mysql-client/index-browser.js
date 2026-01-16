@@ -140,6 +140,27 @@ exports.Prisma.TagsScalarFieldEnum = {
   color: 'color'
 };
 
+exports.Prisma.UserScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  name: 'name',
+  password: 'password',
+  avatar: 'avatar',
+  phone: 'phone',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.OTPScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  code: 'code',
+  type: 'type',
+  expiresAt: 'expiresAt',
+  used: 'used',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -176,10 +197,26 @@ exports.Prisma.TagsOrderByRelevanceFieldEnum = {
   color: 'color'
 };
 
+exports.Prisma.UserOrderByRelevanceFieldEnum = {
+  email: 'email',
+  name: 'name',
+  password: 'password',
+  avatar: 'avatar',
+  phone: 'phone'
+};
+
+exports.Prisma.OTPOrderByRelevanceFieldEnum = {
+  email: 'email',
+  code: 'code',
+  type: 'type'
+};
+
 
 exports.Prisma.ModelName = {
   Task: 'Task',
-  Tags: 'Tags'
+  Tags: 'Tags',
+  User: 'User',
+  OTP: 'OTP'
 };
 
 /**

@@ -1,7 +1,8 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import dayjs from "dayjs";
-
+import jwt from "jsonwebtoken";
+const JWT_SECRET = "todoList_ye";
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
@@ -52,3 +53,18 @@ export function getRandoCode(length: number) {
     .substring(2, 2 + length);
   return code;
 }
+
+// 使用jwt生成token
+export const generateToken = (id: number, type: "at" | "rt" = "at") => {
+  // 1. 必须使用环境变量存储密钥，不可硬编码在代码中
+  const secret = JWT_SECRET;
+
+  if (!secret) {
+    throw new Error("JWT_SECRET is not defined in environment variables");
+  }
+
+  // 2. 建议设置过期时间（如 30天）
+  return jwt.sign({ id, type }, secret, {
+    expiresIn: "30d",
+  });
+};

@@ -20,3 +20,12 @@ export interface TagType {
   text: string;
   color: string;
 }
+
+export interface UserType {
+  id?: string;
+  email?: string;
+  name?: string;
+  password?: string;
+  avatar?: string;
+  phone?: string;
+}
