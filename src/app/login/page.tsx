@@ -481,7 +481,7 @@ export default function LoginPage() {
               disabled={loading}
             >
               <Github className="mr-2 h-4 w-4" />
-              GitHub
+              微信登录
             </Button>
 
             <GoogleOAuthProvider clientId="208404142536-5e2h96tbrul2pc9aclsbbv5ougka5apn.apps.googleusercontent.com">

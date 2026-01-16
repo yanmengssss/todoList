@@ -1,6 +1,7 @@
 import { CreateTaskType, UserType } from "@/store/interface";
 import { prisma } from "./sql";
-// pnpm prisma generate --schema=./prisma-mysql/schema.prisma
+// npx prisma db push --schema=./prisma-mysql/schema.prisma
+// npx prisma generate --schema=./prisma-mysql/schema.prisma
 //新建任务
 export const createTask = async (task: CreateTaskType) => {
   const { title, description, priority, endAt, favorite, tags = [] } = task;

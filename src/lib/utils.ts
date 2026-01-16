@@ -47,11 +47,17 @@ export function deepClone<T>(obj: T): T {
 }
 
 export function getRandoCode(length: number) {
-  // 生成随机验证码,要26字母+大小写随机
-  const code = Math.random()
-    .toString(36)
-    .substring(2, 2 + length);
-  return code;
+  // 生成随机验证码,要26字母+大小写随机+数字
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const charactersLength = characters.length;
+  let result = "";
+
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+
+  return result;
 }
 
 // 使用jwt生成token
