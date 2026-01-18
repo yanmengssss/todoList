@@ -1,13 +1,13 @@
 "use client";
 
-import { GoogleOAuthProvider, useGoogleLogin } from "@react-oauth/google";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { toast } from "sonner";
-import { Mail, Loader2, Phone, Lock, Github } from "lucide-react";
+import { Mail, Loader2, Lock } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -42,9 +42,10 @@ import {
 import { request } from "@/lib/request";
 import { userStore } from "@/store/user";
 import GoogleLoginButton from "../components/GoogleLoginButton";
-
+import { WxLoginButton } from "../components/WxLoginButton";
+import cookiejs from "js-cookie";
 // 登录方式类型
-type LoginMethod = "password" | "email" | "phone";
+type LoginMethod = "password" | "email";
 
 // 表单验证 schema
 const passwordLoginSchema = z.object({
@@ -57,14 +58,8 @@ const emailOtpSchema = z.object({
   otp: z.string().length(6, "OTP 必须是 6 位数字"),
 });
 
-const phoneOtpSchema = z.object({
-  phone: z.string().regex(/^1[3-9]\d{9}$/, "请输入有效的手机号"),
-  otp: z.string().length(6, "OTP 必须是 6 位数字"),
-});
-
 type PasswordLoginFormValues = z.infer<typeof passwordLoginSchema>;
 type EmailOtpFormValues = z.infer<typeof emailOtpSchema>;
-type PhoneOtpFormValues = z.infer<typeof phoneOtpSchema>;
 
 export default function LoginPage() {
   const router = useRouter();
@@ -75,7 +70,6 @@ export default function LoginPage() {
   const [otpDialogOpen, setOtpDialogOpen] = useState(false);
   const [otpCountdown, setOtpCountdown] = useState(0);
   const [otpValue, setOtpValue] = useState("");
-  const [otpTarget, setOtpTarget] = useState<"email" | "phone">("email");
   const [otpTargetValue, setOtpTargetValue] = useState("");
 
   // 密码登录表单
@@ -96,15 +90,6 @@ export default function LoginPage() {
     },
   });
 
-  // 手机号验证码表单
-  const phoneOtpForm = useForm<PhoneOtpFormValues>({
-    resolver: zodResolver(phoneOtpSchema),
-    defaultValues: {
-      phone: "",
-      otp: "",
-    },
-  });
-
   // 倒计时效果
   useEffect(() => {
     if (otpCountdown > 0) {
@@ -115,24 +100,22 @@ export default function LoginPage() {
     }
   }, [otpCountdown]);
 
-  // 发送 OTP（邮箱或手机号）
-  const sendOTP = async (target: string, type: "email" | "phone") => {
+  // 发送 OTP
+  const sendOTP = async (target: string) => {
     try {
       setLoading(true);
       const response = await request({
-        url: "/api/auth/send-otp",
+        url: "/api/auth/Otp/send-otp",
         method: "POST",
         data: {
           email: target,
-          type: "login",
+          type: "email",
+          sence:'login'
         },
       });
 
       if (response.code === 200) {
-        toast.success(
-          type === "email" ? "验证码已发送到您的邮箱" : "验证码已发送到您的手机"
-        );
-        setOtpTarget(type);
+        toast.success("验证码已发送到您的邮箱");
         setOtpTargetValue(target);
         setOtpDialogOpen(true);
         setOtpCountdown(60);
@@ -196,35 +179,19 @@ export default function LoginPage() {
       const response = await request({
         url: "/api/auth/login",
         method: "POST",
-        data:
-          otpTarget === "email"
-            ? {
-                email: otpTargetValue,
-                otp: otpValue,
-              }
-            : {
-                phone: otpTargetValue,
-                otp: otpValue,
-              },
+        data: {
+          email: otpTargetValue,
+          otp: otpValue,
+          type: "email",
+        },
       });
 
       if (response.code === 200) {
-        const userData = response.data as {
-          id?: string;
-          name?: string;
-          email?: string;
-          avatar?: string;
-        };
-        userStore.setUserInfo("userId", userData.id || "");
-        userStore.setUserInfo("userName", userData.name || "");
-        userStore.setUserInfo("userEmail", userData.email || "");
-        userStore.setUserInfo("userAvatar", userData.avatar || "");
-
         toast.success("登录成功");
-        setOtpDialogOpen(false);
-        router.push("/home");
+        cookiejs.set("aToken", response.data.token);
+        router.push("/home/list");
       } else {
-        toast.error(response.mes || "登录失败");
+        toast.error(response.message || "登录失败");
       }
     } catch (error: any) {
       toast.error(error?.message || "登录失败");
@@ -235,33 +202,14 @@ export default function LoginPage() {
 
   // 处理邮箱验证码提交
   const onEmailOtpSubmit = async (values: EmailOtpFormValues) => {
-    await sendOTP(values.email, "email");
-  };
-
-  const handleSuccess = (credentialResponse) => {
-    // 这里的 credentialResponse.credential 就是 JWT Token
-    console.log("登录成功:", credentialResponse);
-
-    // 接下来将 token 发送给你的后端进行验证
-  };
-
-  const handleError = () => {
-    console.log("登录失败");
-  };
-
-  // 处理手机号验证码提交
-  const onPhoneOtpSubmit = async (values: PhoneOtpFormValues) => {
-    await sendOTP(values.phone, "phone");
+    await sendOTP(values.email);
   };
 
   // 重新发送 OTP
   const resendOTP = async () => {
     if (otpCountdown > 0) return;
-    await sendOTP(otpTargetValue, otpTarget);
+    await sendOTP(otpTargetValue);
   };
-
-  // GitHub 登录
-  const handleGithubLogin = () => {};
 
   return (
     <div
@@ -295,15 +243,6 @@ export default function LoginPage() {
             >
               <Mail className="mr-2 h-4 w-4" />
               邮箱登录
-            </Button>
-            <Button
-              type="button"
-              variant={loginMethod === "phone" ? "default" : "ghost"}
-              className="flex-1"
-              onClick={() => setLoginMethod("phone")}
-            >
-              <Phone className="mr-2 h-4 w-4" />
-              手机登录
             </Button>
           </div>
 
@@ -417,49 +356,6 @@ export default function LoginPage() {
             </Form>
           )}
 
-          {/* 手机号验证码登录表单 */}
-          {loginMethod === "phone" && (
-            <Form {...phoneOtpForm}>
-              <form
-                onSubmit={phoneOtpForm.handleSubmit(onPhoneOtpSubmit)}
-                className="space-y-4"
-              >
-                <FormField
-                  control={phoneOtpForm.control}
-                  name="phone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>手机号</FormLabel>
-                      <FormControl>
-                        <div className="relative">
-                          <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                          <Input
-                            {...field}
-                            type="tel"
-                            placeholder="请输入手机号"
-                            className="pl-10"
-                            disabled={loading}
-                          />
-                        </div>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <Button type="submit" className="w-full" disabled={loading}>
-                  {loading ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      发送中...
-                    </>
-                  ) : (
-                    "发送验证码"
-                  )}
-                </Button>
-              </form>
-            </Form>
-          )}
-
           {/* 第三方登录 */}
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
@@ -473,16 +369,7 @@ export default function LoginPage() {
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <Button
-              type="button"
-              variant="outline"
-              className="w-full"
-              onClick={handleGithubLogin}
-              disabled={loading}
-            >
-              <Github className="mr-2 h-4 w-4" />
-              微信登录
-            </Button>
+            <WxLoginButton />
 
             <GoogleOAuthProvider clientId="208404142536-5e2h96tbrul2pc9aclsbbv5ougka5apn.apps.googleusercontent.com">
               <GoogleLoginButton loading={loading} />
@@ -515,9 +402,7 @@ export default function LoginPage() {
           <DialogHeader>
             <DialogTitle>输入验证码</DialogTitle>
             <DialogDescription>
-              {otpTarget === "email"
-                ? `验证码已发送至 ${otpTargetValue}`
-                : `验证码已发送至 ${otpTargetValue}`}
+              验证码已发送至 {otpTargetValue}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 py-4">

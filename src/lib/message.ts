@@ -1,6 +1,7 @@
 import nodemailer from "nodemailer";
 const formEmail = "2799484803@qq.com";
 const pass = "wsiqrgeqdmmqdgbj";
+
 // 创建邮件发送器
 const transporter = nodemailer.createTransport({
   service: "qq", // 邮箱服务商，例如 'qq', 'gmail', '163'

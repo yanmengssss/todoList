@@ -114,11 +114,17 @@ exports.Prisma.TagsScalarFieldEnum = {
 
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
+  userID: 'userID',
   email: 'email',
   name: 'name',
   password: 'password',
   avatar: 'avatar',
   phone: 'phone',
+  githubID: 'githubID',
+  googleID: 'googleID',
+  tags: 'tags',
+  tasks: 'tasks',
+  wxID: 'wxID',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -129,6 +135,11 @@ exports.Prisma.SortOrder = {
 };
 
 exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
   JsonNull: Prisma.JsonNull
 };
 
@@ -160,11 +171,15 @@ exports.Prisma.TagsOrderByRelevanceFieldEnum = {
 };
 
 exports.Prisma.UserOrderByRelevanceFieldEnum = {
+  userID: 'userID',
   email: 'email',
   name: 'name',
   password: 'password',
   avatar: 'avatar',
-  phone: 'phone'
+  phone: 'phone',
+  githubID: 'githubID',
+  googleID: 'googleID',
+  wxID: 'wxID'
 };
 
 
@@ -184,7 +199,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\zhenshuoHuang\\Desktop\\tl\\todoList\\prisma-mysql-client",
+      "value": "I:\\todoList\\todo-list\\prisma-mysql-client",
       "fromEnvVar": null
     },
     "config": {
@@ -198,7 +213,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\zhenshuoHuang\\Desktop\\tl\\todoList\\prisma-mysql\\schema.prisma",
+    "sourceFilePath": "I:\\todoList\\todo-list\\prisma-mysql\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -212,7 +227,6 @@ const config = {
     "db"
   ],
   "activeProvider": "mysql",
-  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -221,13 +235,13 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../prisma-mysql-client\"\n}\n\ndatasource db {\n  provider = \"mysql\"\n  url      = env(\"MYSQL_DATABASE_URL\")\n}\n\nmodel Task {\n  id          Int       @id @default(autoincrement())\n  title       String\n  description String?\n  status      String\n  priority    Int\n  endAt       DateTime?\n  userId      Int\n  favorite    Boolean   @default(false)\n  tags        Json\n  createdAt   DateTime  @default(now())\n  updatedAt   DateTime  @updatedAt\n}\n\nmodel Tags {\n  id    Int     @id @default(autoincrement())\n  text  String\n  color String?\n}\n\nmodel User {\n  id        Int      @id @default(autoincrement())\n  email     String   @unique\n  name      String?\n  password  String?\n  avatar    String?\n  phone     String?\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n",
-  "inlineSchemaHash": "8df67b80091c5ac6c36798ac750ae304f397331d3b46cf1920c2d8318d5a8a2d",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../prisma-mysql-client\"\n}\n\ndatasource db {\n  provider = \"mysql\"\n  url      = env(\"MYSQL_DATABASE_URL\")\n}\n\nmodel Task {\n  id          Int       @id @default(autoincrement())\n  title       String\n  description String?\n  status      String\n  priority    Int\n  endAt       DateTime?\n  userId      Int\n  favorite    Boolean   @default(false)\n  tags        Json\n  createdAt   DateTime  @default(now())\n  updatedAt   DateTime  @updatedAt\n}\n\nmodel Tags {\n  id    Int     @id @default(autoincrement())\n  text  String\n  color String?\n}\n\nmodel User {\n  id        Int      @id @default(autoincrement())\n  userID    String   @unique\n  email     String   @unique\n  name      String?  @default(\"\")\n  password  String?  @default(\"\")\n  avatar    String?  @default(\"\")\n  phone     String?  @default(\"\")\n  githubID  String?  @default(\"\")\n  googleID  String?  @default(\"\")\n  tags      Json?    @default(dbgenerated(\"'[]'\"))\n  tasks     Json?    @default(dbgenerated(\"'[]'\"))\n  wxID      String?  @default(\"\")\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n",
+  "inlineSchemaHash": "f8cbae9d29361c908fd1fa3a38ea9aa1a8461e610b58d5a5b0ec8aa4076baba9",
   "copyEngine": true
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"Task\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"priority\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"endAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"favorite\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"tags\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Tags\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"text\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"color\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null},\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"avatar\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"phone\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"Task\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"priority\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"endAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"favorite\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"tags\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Tags\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"text\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"color\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null},\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"userID\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"avatar\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"phone\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"githubID\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"googleID\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"tags\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"tasks\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"wxID\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = {
   getRuntime: async () => require('./query_engine_bg.js'),

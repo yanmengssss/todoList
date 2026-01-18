@@ -142,11 +142,17 @@ exports.Prisma.TagsScalarFieldEnum = {
 
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
+  userID: 'userID',
   email: 'email',
   name: 'name',
   password: 'password',
   avatar: 'avatar',
   phone: 'phone',
+  githubID: 'githubID',
+  googleID: 'googleID',
+  tags: 'tags',
+  tasks: 'tasks',
+  wxID: 'wxID',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -157,6 +163,11 @@ exports.Prisma.SortOrder = {
 };
 
 exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
   JsonNull: Prisma.JsonNull
 };
 
@@ -188,11 +199,15 @@ exports.Prisma.TagsOrderByRelevanceFieldEnum = {
 };
 
 exports.Prisma.UserOrderByRelevanceFieldEnum = {
+  userID: 'userID',
   email: 'email',
   name: 'name',
   password: 'password',
   avatar: 'avatar',
-  phone: 'phone'
+  phone: 'phone',
+  githubID: 'githubID',
+  googleID: 'googleID',
+  wxID: 'wxID'
 };
 
 

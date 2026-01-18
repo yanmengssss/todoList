@@ -28,4 +28,8 @@ export interface UserType {
   password?: string;
   avatar?: string;
   phone?: string;
+  githubID?: string
+  googleID?: string
+  wxID?: string
+  userID?: string
 }

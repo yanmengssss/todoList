@@ -5,10 +5,10 @@ import { getRandoCode, toObj } from "@/lib/utils";
 import { NextResponse } from "next/server";
 export async function POST(request: Request) {
   try {
-    const { email, type } = await request.json();
-    const opt = getRandoCode(6);
+    const { email, type, sence } = await request.json();
+    const opt = getRandoCode(6, "number");
     await sendMail(email, type, opt);
-    await redis.set(type + "-" + email, opt, { ex: 60 * 5 }); // 5分钟过期
+    await redis.set(type + "-" + email + '-' + sence, opt, { ex: 60 * 5 }); // 5分钟过期
     const res = {
       code: 200,
       mes: "success",

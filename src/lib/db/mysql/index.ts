@@ -1,5 +1,6 @@
 import { CreateTaskType, UserType } from "@/store/interface";
 import { prisma } from "./sql";
+import { randomUUID } from "crypto";
 // npx prisma db push --schema=./prisma-mysql/schema.prisma
 // npx prisma generate --schema=./prisma-mysql/schema.prisma
 //新建任务
@@ -29,6 +30,10 @@ export const createUser = async (user: UserType) => {
       password: user.password || "",
       email: user.email || "",
       avatar: user.avatar || "",
+      githubID: user.githubID || "",
+      googleID: user.googleID || "",
+      wxID: user.wxID || "",
+      userID: randomUUID(),
     },
   });
   return result;

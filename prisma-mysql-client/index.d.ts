@@ -2920,33 +2920,47 @@ export namespace Prisma {
 
   export type UserMinAggregateOutputType = {
     id: number | null
+    userID: string | null
     email: string | null
     name: string | null
     password: string | null
     avatar: string | null
     phone: string | null
+    githubID: string | null
+    googleID: string | null
+    wxID: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type UserMaxAggregateOutputType = {
     id: number | null
+    userID: string | null
     email: string | null
     name: string | null
     password: string | null
     avatar: string | null
     phone: string | null
+    githubID: string | null
+    googleID: string | null
+    wxID: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type UserCountAggregateOutputType = {
     id: number
+    userID: number
     email: number
     name: number
     password: number
     avatar: number
     phone: number
+    githubID: number
+    googleID: number
+    tags: number
+    tasks: number
+    wxID: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -2963,33 +2977,47 @@ export namespace Prisma {
 
   export type UserMinAggregateInputType = {
     id?: true
+    userID?: true
     email?: true
     name?: true
     password?: true
     avatar?: true
     phone?: true
+    githubID?: true
+    googleID?: true
+    wxID?: true
     createdAt?: true
     updatedAt?: true
   }
 
   export type UserMaxAggregateInputType = {
     id?: true
+    userID?: true
     email?: true
     name?: true
     password?: true
     avatar?: true
     phone?: true
+    githubID?: true
+    googleID?: true
+    wxID?: true
     createdAt?: true
     updatedAt?: true
   }
 
   export type UserCountAggregateInputType = {
     id?: true
+    userID?: true
     email?: true
     name?: true
     password?: true
     avatar?: true
     phone?: true
+    githubID?: true
+    googleID?: true
+    tags?: true
+    tasks?: true
+    wxID?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -3083,11 +3111,17 @@ export namespace Prisma {
 
   export type UserGroupByOutputType = {
     id: number
+    userID: string
     email: string
     name: string | null
     password: string | null
     avatar: string | null
     phone: string | null
+    githubID: string | null
+    googleID: string | null
+    tags: JsonValue | null
+    tasks: JsonValue | null
+    wxID: string | null
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -3113,11 +3147,17 @@ export namespace Prisma {
 
   export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    userID?: boolean
     email?: boolean
     name?: boolean
     password?: boolean
     avatar?: boolean
     phone?: boolean
+    githubID?: boolean
+    googleID?: boolean
+    tags?: boolean
+    tasks?: boolean
+    wxID?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -3126,27 +3166,39 @@ export namespace Prisma {
 
   export type UserSelectScalar = {
     id?: boolean
+    userID?: boolean
     email?: boolean
     name?: boolean
     password?: boolean
     avatar?: boolean
     phone?: boolean
+    githubID?: boolean
+    googleID?: boolean
+    tags?: boolean
+    tasks?: boolean
+    wxID?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "name" | "password" | "avatar" | "phone" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userID" | "email" | "name" | "password" | "avatar" | "phone" | "githubID" | "googleID" | "tags" | "tasks" | "wxID" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {}
     scalars: $Extensions.GetPayloadResult<{
       id: number
+      userID: string
       email: string
       name: string | null
       password: string | null
       avatar: string | null
       phone: string | null
+      githubID: string | null
+      googleID: string | null
+      tags: Prisma.JsonValue | null
+      tasks: Prisma.JsonValue | null
+      wxID: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -3519,11 +3571,17 @@ export namespace Prisma {
    */
   interface UserFieldRefs {
     readonly id: FieldRef<"User", 'Int'>
+    readonly userID: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
     readonly name: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
     readonly avatar: FieldRef<"User", 'String'>
     readonly phone: FieldRef<"User", 'String'>
+    readonly githubID: FieldRef<"User", 'String'>
+    readonly googleID: FieldRef<"User", 'String'>
+    readonly tags: FieldRef<"User", 'Json'>
+    readonly tasks: FieldRef<"User", 'Json'>
+    readonly wxID: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -3889,11 +3947,17 @@ export namespace Prisma {
 
   export const UserScalarFieldEnum: {
     id: 'id',
+    userID: 'userID',
     email: 'email',
     name: 'name',
     password: 'password',
     avatar: 'avatar',
     phone: 'phone',
+    githubID: 'githubID',
+    googleID: 'googleID',
+    tags: 'tags',
+    tasks: 'tasks',
+    wxID: 'wxID',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -3914,6 +3978,14 @@ export namespace Prisma {
   };
 
   export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
   export const JsonNullValueFilter: {
@@ -3959,11 +4031,15 @@ export namespace Prisma {
 
 
   export const UserOrderByRelevanceFieldEnum: {
+    userID: 'userID',
     email: 'email',
     name: 'name',
     password: 'password',
     avatar: 'avatar',
-    phone: 'phone'
+    phone: 'phone',
+    githubID: 'githubID',
+    googleID: 'googleID',
+    wxID: 'wxID'
   };
 
   export type UserOrderByRelevanceFieldEnum = (typeof UserOrderByRelevanceFieldEnum)[keyof typeof UserOrderByRelevanceFieldEnum]
@@ -4161,22 +4237,34 @@ export namespace Prisma {
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     id?: IntFilter<"User"> | number
+    userID?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
     name?: StringNullableFilter<"User"> | string | null
     password?: StringNullableFilter<"User"> | string | null
     avatar?: StringNullableFilter<"User"> | string | null
     phone?: StringNullableFilter<"User"> | string | null
+    githubID?: StringNullableFilter<"User"> | string | null
+    googleID?: StringNullableFilter<"User"> | string | null
+    tags?: JsonNullableFilter<"User">
+    tasks?: JsonNullableFilter<"User">
+    wxID?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
   }
 
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
+    userID?: SortOrder
     email?: SortOrder
     name?: SortOrderInput | SortOrder
     password?: SortOrderInput | SortOrder
     avatar?: SortOrderInput | SortOrder
     phone?: SortOrderInput | SortOrder
+    githubID?: SortOrderInput | SortOrder
+    googleID?: SortOrderInput | SortOrder
+    tags?: SortOrderInput | SortOrder
+    tasks?: SortOrderInput | SortOrder
+    wxID?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _relevance?: UserOrderByRelevanceInput
@@ -4184,6 +4272,7 @@ export namespace Prisma {
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    userID?: string
     email?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
@@ -4192,17 +4281,28 @@ export namespace Prisma {
     password?: StringNullableFilter<"User"> | string | null
     avatar?: StringNullableFilter<"User"> | string | null
     phone?: StringNullableFilter<"User"> | string | null
+    githubID?: StringNullableFilter<"User"> | string | null
+    googleID?: StringNullableFilter<"User"> | string | null
+    tags?: JsonNullableFilter<"User">
+    tasks?: JsonNullableFilter<"User">
+    wxID?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
-  }, "id" | "email">
+  }, "id" | "userID" | "email">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
+    userID?: SortOrder
     email?: SortOrder
     name?: SortOrderInput | SortOrder
     password?: SortOrderInput | SortOrder
     avatar?: SortOrderInput | SortOrder
     phone?: SortOrderInput | SortOrder
+    githubID?: SortOrderInput | SortOrder
+    googleID?: SortOrderInput | SortOrder
+    tags?: SortOrderInput | SortOrder
+    tasks?: SortOrderInput | SortOrder
+    wxID?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -4217,11 +4317,17 @@ export namespace Prisma {
     OR?: UserScalarWhereWithAggregatesInput[]
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"User"> | number
+    userID?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
     name?: StringNullableWithAggregatesFilter<"User"> | string | null
     password?: StringNullableWithAggregatesFilter<"User"> | string | null
     avatar?: StringNullableWithAggregatesFilter<"User"> | string | null
     phone?: StringNullableWithAggregatesFilter<"User"> | string | null
+    githubID?: StringNullableWithAggregatesFilter<"User"> | string | null
+    googleID?: StringNullableWithAggregatesFilter<"User"> | string | null
+    tags?: JsonNullableWithAggregatesFilter<"User">
+    tasks?: JsonNullableWithAggregatesFilter<"User">
+    wxID?: StringNullableWithAggregatesFilter<"User"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -4361,75 +4467,117 @@ export namespace Prisma {
   }
 
   export type UserCreateInput = {
+    userID: string
     email: string
     name?: string | null
     password?: string | null
     avatar?: string | null
     phone?: string | null
+    githubID?: string | null
+    googleID?: string | null
+    tags?: NullableJsonNullValueInput | InputJsonValue
+    tasks?: NullableJsonNullValueInput | InputJsonValue
+    wxID?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type UserUncheckedCreateInput = {
     id?: number
+    userID: string
     email: string
     name?: string | null
     password?: string | null
     avatar?: string | null
     phone?: string | null
+    githubID?: string | null
+    googleID?: string | null
+    tags?: NullableJsonNullValueInput | InputJsonValue
+    tasks?: NullableJsonNullValueInput | InputJsonValue
+    wxID?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type UserUpdateInput = {
+    userID?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    githubID?: NullableStringFieldUpdateOperationsInput | string | null
+    googleID?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: NullableJsonNullValueInput | InputJsonValue
+    tasks?: NullableJsonNullValueInput | InputJsonValue
+    wxID?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
+    userID?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    githubID?: NullableStringFieldUpdateOperationsInput | string | null
+    googleID?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: NullableJsonNullValueInput | InputJsonValue
+    tasks?: NullableJsonNullValueInput | InputJsonValue
+    wxID?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserCreateManyInput = {
     id?: number
+    userID: string
     email: string
     name?: string | null
     password?: string | null
     avatar?: string | null
     phone?: string | null
+    githubID?: string | null
+    googleID?: string | null
+    tags?: NullableJsonNullValueInput | InputJsonValue
+    tasks?: NullableJsonNullValueInput | InputJsonValue
+    wxID?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type UserUpdateManyMutationInput = {
+    userID?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    githubID?: NullableStringFieldUpdateOperationsInput | string | null
+    googleID?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: NullableJsonNullValueInput | InputJsonValue
+    tasks?: NullableJsonNullValueInput | InputJsonValue
+    wxID?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
+    userID?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
+    githubID?: NullableStringFieldUpdateOperationsInput | string | null
+    googleID?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: NullableJsonNullValueInput | InputJsonValue
+    tasks?: NullableJsonNullValueInput | InputJsonValue
+    wxID?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -4733,6 +4881,29 @@ export namespace Prisma {
   export type TagsSumOrderByAggregateInput = {
     id?: SortOrder
   }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue
+    lte?: InputJsonValue
+    gt?: InputJsonValue
+    gte?: InputJsonValue
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type UserOrderByRelevanceInput = {
     fields: UserOrderByRelevanceFieldEnum | UserOrderByRelevanceFieldEnum[]
@@ -4742,11 +4913,17 @@ export namespace Prisma {
 
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
+    userID?: SortOrder
     email?: SortOrder
     name?: SortOrder
     password?: SortOrder
     avatar?: SortOrder
     phone?: SortOrder
+    githubID?: SortOrder
+    googleID?: SortOrder
+    tags?: SortOrder
+    tasks?: SortOrder
+    wxID?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -4757,28 +4934,62 @@ export namespace Prisma {
 
   export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
+    userID?: SortOrder
     email?: SortOrder
     name?: SortOrder
     password?: SortOrder
     avatar?: SortOrder
     phone?: SortOrder
+    githubID?: SortOrder
+    googleID?: SortOrder
+    wxID?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
     id?: SortOrder
+    userID?: SortOrder
     email?: SortOrder
     name?: SortOrder
     password?: SortOrder
     avatar?: SortOrder
     phone?: SortOrder
+    githubID?: SortOrder
+    googleID?: SortOrder
+    wxID?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type UserSumOrderByAggregateInput = {
     id?: SortOrder
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue
+    lte?: InputJsonValue
+    gt?: InputJsonValue
+    gte?: InputJsonValue
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -5008,6 +5219,29 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue
+    lte?: InputJsonValue
+    gt?: InputJsonValue
+    gte?: InputJsonValue
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
 
